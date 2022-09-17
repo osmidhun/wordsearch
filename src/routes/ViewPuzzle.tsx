@@ -19,7 +19,7 @@ const ViewPuzzle = (props: Props) => {
   /**
    * Set of words which are focused. A word is focused when it is highlighted in the When a word is focused it becomes highlighted in the word list.
    */
-  const [focused, setFocused] = useState<Set<string>>(Set());
+  const [focused, setFocused] = useState<Set<string>|undefined>(Set());
 
   /**
    * Word which is selected. A word is selected when moused over in the word list.
@@ -34,9 +34,14 @@ const ViewPuzzle = (props: Props) => {
         <Puzzle
           words={props.words}
           rows={props.rows}
-          focusWords={words =>
-            setFocused(focused => focused.clear().concat(words))
+          
+        focusWords={words =>
+        {
+            return setFocused(function (focused): Immutable.Iterable<string, string> {
+              return focused!.clear().concat(words);
+            });
           }
+         }
           selectedWord={selectedWord}
         />
       </div>
