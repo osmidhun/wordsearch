@@ -28,9 +28,9 @@ interface State {
   pointerPosition?: Position;
 }
 
-const PositionRecord: Record.Factory<Position> = Record({
+const PositionRecord = Record({
   rowIdx: -1,
-  colIdx: -1
+  colIdx: -1,
 });
 
 const getSize = memoize((rows: string[]) => {
@@ -49,7 +49,8 @@ const getMatches = memoize((rows: string[], words: string[]) =>
 
 const getMatchesAt = memoize((rows: string[], words: string[]) => {
   const matches = getMatches(rows, words);
-  let matchesAt = Map<Record<Position>, Match[]>();
+  const recordType = PositionRecord();
+  let matchesAt = Map<typeof recordType, Match[]>();
   for (let idx = 0; idx < matches.length; idx++) {
     const match = matches[idx];
 
@@ -166,8 +167,11 @@ class Puzzle extends Component<Props, State> {
     } else {
       const matches = getMatches(this.props.rows, this.props.words);
       const matchesAt = getMatchesAt(this.props.rows, this.props.words);
-      const matchesAtPointer =
-        matchesAt.get(PositionRecord(this.state.pointerPosition)) || [];
+      const pointerPosition = this.state.pointerPosition;
+      const matchesAtPointer = pointerPosition
+        ? matchesAt.get(PositionRecord(pointerPosition)) || []
+        : [];
+
 
       const matchesForWord = this.props.selectedWord
         ? matches.filter(match => match.word === this.props.selectedWord)

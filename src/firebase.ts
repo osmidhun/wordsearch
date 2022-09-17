@@ -1,4 +1,4 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import "firebase/firestore";
 
 firebase.initializeApp({
@@ -11,5 +11,5 @@ firebase.initializeApp({
 });
 
 export const firestore = firebase.firestore();
-const settings = { timestampsInSnapshots: true };
-firestore.settings(settings);
+//const settings = { timestampsInSnapshots: true };
+//firestore.settings(settings);

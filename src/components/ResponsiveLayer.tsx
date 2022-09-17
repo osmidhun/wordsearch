@@ -1,5 +1,7 @@
+import Konva from "konva";
+import { Vector2d } from "konva/lib/types";
 import React from "react";
-import Konva, { Vector2d } from "konva";
+
 import { Layer } from "react-konva";
 
 interface Props {
@@ -16,14 +18,16 @@ interface Dims {
   height: number;
 }
 
-function positionOf<T>(e: Konva.KonvaEventObject<T>): Vector2d {
-  return e.target.getStage().getPointerPosition();
+function positionOf<T>(e: Konva.KonvaEventObject<T>): Vector2d | null{
+   return e.target!.getStage()!.getPointerPosition();
 }
 
-const makeScaler = (scale: Vector2d) => (position: Vector2d): Vector2d => ({
-  x: position.x * scale.x,
-  y: position.y * scale.y
-});
+function makeScaler(scale: Vector2d): (position: Vector2d) => Vector2d {
+  return (position: Vector2d): Vector2d => ({
+    x: position.x * scale.x,
+    y: position.y * scale.y
+  });
+}
 
 const makeTranslator = (translateBy: Vector2d) => (
   position: Vector2d
@@ -67,11 +71,11 @@ const ResponsiveLayer = (props: Props) => {
       y={top}
       scaleX={scaleX}
       scaleY={scaleY}
-      onMouseDown={evt => props.onMouseDown(transform(positionOf(evt)))}
+      onMouseDown={evt => props.onMouseDown(transform(positionOf(evt)!))}
       onMouseMove={evt =>
-        props.onMouseMove(evt.evt.buttons === 1, transform(positionOf(evt)))
+        props.onMouseMove(evt.evt.buttons === 1, transform(positionOf(evt)!))
       }
-      onMouseUp={evt => props.onMouseUp(transform(positionOf(evt)))}
+      onMouseUp={evt => props.onMouseUp(transform(positionOf(evt)!))}
     >
       {props.children}
     </Layer>

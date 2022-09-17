@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import firebase from "firebase/compat";
 import { firestore } from "./firebase";
 
 export interface PuzzleWithId extends PuzzleData {

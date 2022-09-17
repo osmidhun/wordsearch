@@ -25,7 +25,7 @@ class App extends Component {
             <Analytics />
 
             <Switch>
-              <Route
+              <Route 
                 path="/"
                 render={props => (
                   <InputSelection
@@ -34,7 +34,7 @@ class App extends Component {
                     }
                   />
                 )}
-                exact
+                
               />
 
               <Route

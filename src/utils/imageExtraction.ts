@@ -1,5 +1,5 @@
 import Flatbush from "flatbush";
-import { Vector2d } from "konva";
+
 import { SymbolWithBoundingBox } from "./googleCloudVision";
 
 import memoize from "fast-memoize";
@@ -11,6 +11,7 @@ import {
   normalizeCorners
 } from "./geom";
 import { sortBy } from "./sort";
+import { Vector2d } from "konva/lib/types";
 
 const getFlatbush = memoize((symbols: SymbolWithBoundingBox[]) => {
   const index = new Flatbush(symbols.length);

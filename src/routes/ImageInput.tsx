@@ -9,9 +9,10 @@ import ImageAnnotationFetcher from "../components/ImageAnnotationFetcher";
 
 import styles from "./ImageInput.module.css";
 import GridRect from "../components/GridRect";
-import { Vector2d } from "konva";
+
 import { getRows, getWord } from "../utils/imageExtraction";
 import { SymbolWithBoundingBox } from "../utils/googleCloudVision";
+import { Vector2d } from "konva/lib/types";
 
 interface Props {
   file: File;
